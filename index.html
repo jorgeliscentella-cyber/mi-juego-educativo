@@ -1,0 +1,252 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Las partes de la planta</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 18px;
+    font-family: Arial, sans-serif;
+    background: #f0fae9;
+    color: #28552d;
+    text-align: center;
+  }
+  .juego {
+    max-width: 760px;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    border: 3px solid #a8d88b;
+    border-radius: 22px;
+  }
+  h1 { color: #347b38; font-size: 30px; margin: 5px 0; }
+  .instruccion { font-size: 18px; margin: 10px 0 16px; }
+  .palabras {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 9px;
+    margin-bottom: 12px;
+  }
+  .palabras button {
+    border: 2px solid #76b95c;
+    background: #e9f8df;
+    color: #28552d;
+    border-radius: 13px;
+    padding: 10px 15px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .palabras button.seleccionada {
+    background: #ffdf78;
+    border-color: #d99b00;
+  }
+  .palabras button.usada {
+    background: #d9f1d5;
+    color: #59865a;
+    opacity: .65;
+  }
+  svg {
+    width: 100%;
+    max-width: 570px;
+    height: auto;
+    background: #f7fff1;
+    border-radius: 18px;
+    border: 2px solid #d5ebc7;
+  }
+  .zona {
+    fill: rgba(255,255,255,0);
+    stroke: transparent;
+    stroke-width: 4;
+    cursor: pointer;
+  }
+  .zona:hover, .zona:focus {
+    fill: rgba(255, 215, 80, .22);
+    stroke: #e3a900;
+    outline: none;
+  }
+  #mensaje {
+    min-height: 34px;
+    margin: 12px 0;
+    font-size: 19px;
+    font-weight: bold;
+  }
+  #progreso { font-size: 17px; margin: 8px; }
+  #reiniciar {
+    background: #398b43;
+    color: white;
+    border: 0;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-size: 17px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<div class="juego">
+  <h1>🌻 ¡Descubre las partes de la planta! 🌱</h1>
+  <p class="instruccion">
+    1. Selecciona una palabra. 2. Toca la parte correcta en el dibujo.
+  </p>
+  <div class="palabras" id="palabras">
+    <button data-parte="raiz">Raíz</button>
+    <button data-parte="tallo">Tallo</button>
+    <button data-parte="hojas">Hojas</button>
+    <button data-parte="flor">Flor</button>
+    <button data-parte="fruto">Fruto</button>
+    <button data-parte="semilla">Semilla</button>
+  </div>
+
+  <svg viewBox="0 0 600 430" role="img"
+       aria-label="Dibujo de una planta con sus partes">
+
+    <!-- Suelo -->
+    <path d="M35 335 Q300 320 565 335 L565 410 L35 410Z"
+          fill="#d8bd8b"/>
+    <path d="M35 335 Q300 320 565 335"
+          fill="none" stroke="#9b7849" stroke-width="5"/>
+
+    <!-- Raíces -->
+    <g fill="none" stroke="#a66b37" stroke-width="9"
+       stroke-linecap="round">
+      <path d="M300 300 Q295 345 300 390"/>
+      <path d="M300 335 Q260 350 235 385"/>
+      <path d="M300 340 Q345 355 370 390"/>
+      <path d="M275 350 Q260 375 260 395"/>
+      <path d="M330 350 Q345 375 345 395"/>
+    </g>
+
+    <!-- Tallo -->
+    <path d="M300 315 Q294 240 300 125"
+          fill="none" stroke="#328a43" stroke-width="17"
+          stroke-linecap="round"/>
+
+    <!-- Hojas -->
+    <path d="M295 220 Q220 145 155 190 Q205 250 295 220Z"
+          fill="#65bd54" stroke="#328a43" stroke-width="4"/>
+    <path d="M302 185 Q370 115 445 155 Q405 220 302 185Z"
+          fill="#65bd54" stroke="#328a43" stroke-width="4"/>
+    <path d="M295 220 L175 195 M302 185 L430 160"
+          stroke="#328a43" stroke-width="4" fill="none"/>
+
+    <!-- Flor -->
+    <g transform="translate(300 85)">
+      <circle cx="0" cy="-27" r="22" fill="#ffcf55"/>
+      <circle cx="27" cy="-8" r="22" fill="#ffcf55"/>
+      <circle cx="17" cy="22" r="22" fill="#ffcf55"/>
+      <circle cx="-17" cy="22" r="22" fill="#ffcf55"/>
+      <circle cx="-27" cy="-8" r="22" fill="#ffcf55"/>
+      <circle cx="0" cy="0" r="18" fill="#9a5a24"/>
+    </g>
+
+    <!-- Fruto -->
+    <path d="M300 245 Q350 225 375 250 Q400 280 370 310
+             Q335 325 310 295Z"
+          fill="#ef6b4c" stroke="#b8442e" stroke-width="4"/>
+    <path d="M345 240 Q350 220 365 218"
+          stroke="#328a43" stroke-width="7" fill="none"/>
+
+    <!-- Semilla ampliada -->
+    <ellipse cx="470" cy="285" rx="24" ry="15"
+             fill="#b97837" stroke="#805024" stroke-width="3"/>
+    <path d="M470 273 Q480 285 470 297"
+          stroke="#805024" stroke-width="2" fill="none"/>
+    <text x="470" y="320" font-size="15" text-anchor="middle"
+          fill="#70431e">Semilla</text>
+
+    <!-- Zonas interactivas -->
+    <circle class="zona" data-parte="flor" cx="300" cy="85" r="55"
+            tabindex="0" aria-label="Flor"/>
+    <ellipse class="zona" data-parte="hojas" cx="300" cy="195"
+             rx="155" ry="65" tabindex="0" aria-label="Hojas"/>
+    <rect class="zona" data-parte="tallo" x="278" y="125"
+          width="45" height="195" rx="15" tabindex="0"
+          aria-label="Tallo"/>
+    <ellipse class="zona" data-parte="fruto" cx="350" cy="275"
+             rx="48" ry="55" tabindex="0" aria-label="Fruto"/>
+    <ellipse class="zona" data-parte="semilla" cx="470" cy="285"
+             rx="34" ry="28" tabindex="0" aria-label="Semilla"/>
+    <ellipse class="zona" data-parte="raiz" cx="300" cy="365"
+             rx="100" ry="48" tabindex="0" aria-label="Raíz"/>
+  </svg>
+
+  <div id="mensaje" aria-live="polite">
+    ¡Vamos a aprender jugando!
+  </div>
+  <div id="progreso">Aciertos: 0 de 6</div>
+  <button id="reiniciar" onclick="reiniciar()">🔄 Volver a jugar</button>
+</div>
+
+<script>
+  let seleccion = "";
+  let aciertos = new Set();
+
+  const botones = document.querySelectorAll(".palabras button");
+  const zonas = document.querySelectorAll(".zona");
+  const mensaje = document.getElementById("mensaje");
+  const progreso = document.getElemenById("progreso");
+  botones.forEach(boton => {
+    boton.addEventListener("click", () => {
+      if (aciertos.has(boton.dataset.parte)) return;
+      seleccion = boton.dataset.parte;
+      botones.forEach(b => b.classList.remove("seleccionada"));
+      boton.classList.add("seleccionada");
+     mensaje.textContent = "¡Muy bien! Ahora toca esa parte en el dibujo.";
+      mensaje.style.color = "#347b38";
+    });
+  });
+  function comprobar(parte) {
+    if (!seleccion) {
+      mensaje.textContent = "Primero selecciona una palabra. 😊";
+      mensaje.style.color = "#b36a00";
+      return;
+    }
+    if (parte === seleccion) {
+      aciertos.add(parte);
+      const boton = document.querySelector(
+        '.palabras button[data-parte="' + parte + '"]'
+      );
+      boton.classList.remove("seleccionada");
+      boton.classList.add("usada");
+      boton.disabled = true;
+      mensaje.textContent = "¡Excelente! ¡Lo lograste! ⭐";
+      mensaje.style.color = "#23833b";
+      seleccion = "";
+      progreso.textContent = "Aciertos: " + aciertos.size + " de 6";
+      if (aciertos.size === 6) {
+        mensaje.textContent = "🎉 ¡Felicidades! Identificaste todas las partes.";
+      }
+    } else {
+      mensaje.textContent = "¡Inténtalo otra vez! Tú puedes. 💪";
+      mensaje.style.color = "#c15b28";
+    }
+  }
+  zonas.forEach(zona => {
+    zona.addEventListener("click", () => comprobar(zona.dataset.parte));
+    zona.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        comprobar(zona.dataset.parte);
+      }
+    });
+  });
+  function reiniciar() {
+    seleccion = "";
+    aciertos.clear();
+    botones.forEach(b => {
+      b.disabled = false;
+      b.classList.remove("seleccionada", "usada");
+    });
+    mensaje.textContent = "¡Vamos a aprender jugando!";
+    mensaje.style.color = "#28552d";
+    progreso.textContent = "Aciertos: 0 de 6";
+  }
+</script>
+</body>
+</html>
